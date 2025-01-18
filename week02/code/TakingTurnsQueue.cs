@@ -45,6 +45,10 @@ public class TakingTurnsQueue
                 person.Turns -= 1;
                 _people.Enqueue(person);
             }
+            else if (person.Turns < 1 && person.IsInfinite)
+            {
+                _people.Enqueue(person); // Added code to handle a person with infinite turns (if they are assigned negative turns). The code automatically enqueues them.
+            }
 
             return person;
         }

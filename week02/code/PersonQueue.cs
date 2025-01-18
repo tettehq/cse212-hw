@@ -13,7 +13,7 @@ public class PersonQueue
     /// <param name="person">The person to add</param>
     public void Enqueue(Person person)
     {
-        _queue.Insert(0, person);
+        _queue.Add(person); // Person should be added from the back, instead of from the start. Fixed this by changing "Insert(0, person)" to "Add(person)"
     }
 
     public Person Dequeue()
