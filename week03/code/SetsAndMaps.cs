@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Linq;
 
 public static class SetsAndMaps
 {
@@ -22,7 +23,28 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        // create a list to store the pairs result named matches
+        // create a hashset to get all unique values in the word list and enable fast lookups
+        // reverse each word in the word list using the Array.Reverse method
+        // check if each reversed word exists in the hashset
+        // if reversed word is in hashset, add both reversed word and original word to result list and delete the word from the hashset.
+        // return result list
+        List<string> matches = new();
+        var unique = new HashSet<string> (words);
+        foreach (var word in words) {
+            char[] charArray = word.ToCharArray();
+            Array.Reverse(charArray);
+            string reversed = new(charArray);
+
+            if (unique.Contains(reversed) && word != reversed) {
+                string match = $"{reversed} & {word}";
+                matches.Add(match);
+                unique.Remove(word);
+                unique.Remove(word);
+
+            }
+        }
+        return matches.ToArray();
     }
 
     /// <summary>
@@ -43,6 +65,16 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+
+            // return the degree names and store them as keys in the dictionary
+            // conditional statement checks if the degree name is already stored as a key, and increments the value by 1
+            if (degrees.ContainsKey(fields[3])) {
+                degrees[fields[3]]++;
+            }
+            // if degree name is not found as a key in the dictionary, it is then stored as one and initialized with a value of 1
+            else {
+                degrees[fields[3]] = 1;
+            }
         }
 
         return degrees;
@@ -66,8 +98,50 @@ public static class SetsAndMaps
     /// </summary>
     public static bool IsAnagram(string word1, string word2)
     {
-        // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        // create a dictionary to hold character counts.
+        var anagramDict = new Dictionary<char, int>();
+
+        // clean up input words by removing spaces and converting to lowercase.
+        string cleanWord1 = word1.Replace(" ", "").ToLower();
+        string cleanWord2 = word2.Replace(" ", "").ToLower();
+
+        // check if the cleaned words have the same length.
+        if (cleanWord1.Length != cleanWord2.Length)
+        {
+            return false;
+        }
+
+
+        // populate the dictionary with character counts from cleanWord1.
+        foreach (char c in cleanWord1)
+        {
+            if (anagramDict.ContainsKey(c))
+            {
+                anagramDict[c]++;
+            }
+            else
+            {
+                anagramDict[c] = 1;
+            }
+        }
+
+        // decrement character counts based on cleanWord2.
+        foreach (char c in cleanWord2)
+        {
+            if (!anagramDict.ContainsKey(c)) // exit and return false if character in cleanWord2 is not found in dictionary
+            {
+                return false;
+            }
+            anagramDict[c]--;
+
+            // exit early if character count goes lower than zero
+            if (anagramDict[c] < 0) {
+                return false;
+            }
+        }
+
+        // at this point, all counts are zero, so the words are anagrams.
+        return true;
     }
 
     /// <summary>
@@ -101,6 +175,21 @@ public static class SetsAndMaps
         // on those classes so that the call to Deserialize above works properly.
         // 2. Add code below to create a string out each place a earthquake has happened today and its magitude.
         // 3. Return an array of these string descriptions.
-        return [];
+
+        // keeps the length of the featureCollection.features to use to declare the result array
+        var Size = featureCollection.Features.Length;
+        string[] resultArray = new string[Size]; // create array to store results
+        int index = 0; // index will be used to add items to the resultArray
+
+        // create a loop that gets the magnitude and place of an earthquake and formats it as a string
+        // then adds the result to the resultArray
+        foreach (var feature in featureCollection.Features)
+        {
+            string result = $"{feature.Properties.Place} - Mag {feature.Properties.Magnitude}";
+            resultArray[index++] = result;
+        }
+
+        // return results
+        return resultArray;
     }
 }

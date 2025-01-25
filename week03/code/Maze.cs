@@ -33,6 +33,19 @@ public class Maze
     public void MoveLeft()
     {
         // FILL IN CODE
+        var coordinates = (_currX, _currY); // create a variable to store current coordinates as a ValueTuple.
+
+        // using the coordinates as a key, check the maze dictionary value to
+        // see if a left movement is possible from the possible moves array it stores
+        if (_mazeMap[coordinates][0])
+        {
+            _currX -= 1; // create a left movement action by reducing "_currX" by 1
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
+        
     }
 
     /// <summary>
@@ -42,6 +55,19 @@ public class Maze
     public void MoveRight()
     {
         // FILL IN CODE
+        var coordinates = (_currX, _currY); // create a variable to store current coordinates as a ValueTuple.
+
+        // using the coordinates as a key, check the maze dictionary value to
+        // see if a right movement is possible from the possible moves array it stores
+        if (_mazeMap[coordinates][1])
+        {
+            _currX += 1; // create a left movement action by incrementing "_currX" by 1
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
+        
     }
 
     /// <summary>
@@ -51,6 +77,19 @@ public class Maze
     public void MoveUp()
     {
         // FILL IN CODE
+        var coordinates = (_currX, _currY); // create a variable to store current coordinates as a ValueTuple.
+        
+        // using the coordinates as a key, check the maze dictionary value to
+        // see if an up movement is possible from the possible moves array it stores
+        if (_mazeMap[coordinates][2])
+        {
+            _currY -= 1; // create an up movement action by reducing "_currY" by 1
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
+        
     }
 
     /// <summary>
@@ -60,6 +99,18 @@ public class Maze
     public void MoveDown()
     {
         // FILL IN CODE
+        var coordinates = (_currX, _currY); // create a variable to store current coordinates as a ValueTuple.
+        
+        // using the coordinates as a key, check the maze dictionary value to
+        // see if a down movement is possible from the possible moves array it stores
+        if (_mazeMap[coordinates][3])
+        {
+            _currY += 1; // create a down movement action by incrementing "_currY" by 1
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
     public string GetStatus()
