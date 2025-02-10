@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 // DO NOT MODIFY THIS FILE
@@ -80,6 +81,7 @@ public class PermutationsChooseTests
             "DB",
             "DC"
         };
+        Debug.WriteLine(results);
         CollectionAssert.AreEqual(expected, results);
     }
 
@@ -96,6 +98,7 @@ public class PermutationsChooseTests
             "C",
             "D"
         };
+        Debug.WriteLine(results);
         CollectionAssert.AreEqual(expected, results);
     }
 }
@@ -181,6 +184,7 @@ public class WildcardBinaryTests
             "110",
             "111"
         };
+        Debug.WriteLine(results);
         CollectionAssert.AreEqual(expected, results);
     }
 }
